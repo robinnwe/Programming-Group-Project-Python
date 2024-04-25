@@ -1,8 +1,7 @@
-a = input()
-print(a)
+a = int(input())
 
-dsafas
-sdafsfd
-dsafa
+if a > 10:
+    print("Hi")
+    
     
 
