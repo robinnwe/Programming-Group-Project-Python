@@ -1,15 +1,13 @@
-a = int(input())
-
-if a > 10:
-    print("Hi")
-
-print("Helloworld")
-
-print("Helloworld")
-    
-    
-import numpy as np
+import pandas as pd
 
 
+data = {
+    'Name': ['John', 'Anna', 'Peter', 'Linda'],
+    'Age': [28, 22, 34, 42]
+}
 
-print("Hello")
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Display the DataFrame
+print(df)
