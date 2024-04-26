@@ -1,1 +1,16 @@
 !pip install yfinance
+# Import yfinance package
+import yfinance as yf
+
+# Set the start and end date
+start_date = '2019-05-25'
+end_date = '2024-05-25'
+
+# Set the ticker
+ticker = 'AMZN'
+
+# Get the data
+data = yf.download(ticker, start_date, end_date)
+
+# Print 5 rows
+data.tail()
