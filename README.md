@@ -1,6 +1,3 @@
 # Programming-Group-Project
 
 
-
-
-Hello
