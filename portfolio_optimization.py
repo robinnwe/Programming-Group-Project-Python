@@ -14,8 +14,8 @@ tickers = ["AFX.DE", "NESN.SW", "LIN"]
 # Set the end date to today
 end_date = datetime.today() # End date is today
 
-# Set the start date to 10 years ago
-start_date = end_date - timedelta(days = 15*365) # Set time range to 10 years
+# Set the start date to 15 years ago
+start_date = end_date - timedelta(days = 15*365) # Set time range to 15 years
 print(start_date)
 
 
