@@ -228,4 +228,56 @@ while True:
         break
       elif choice.upper () == "B":
         print("you have chosen the second answer")
+        points += 2
+        elif choice.upper () == "C":
+        print("you have chosen the third answer")
+        points += 2
+        break #This will break the loop
+      else:
+          print("Invalid choice. Please choose either A, B or C.")
+
+print()
+
+# Question 8
+print("8. Make a choice: \nA: a probability of 25% for a profit of CHF 30'000 \nB: a probability of 20% for a profit of CHF 45'000")
+choice = input("enter your choice (A/B): ")
+if choice.upper () == "A":
+  print("you have chosen the first answer")
+  points += 0
+elif choice.upper () == "B":
+  print("you have chosen the second answer")
+  points += 0
+else:
+    print("Invalid choice. Please choose either A or B.")
+    exit()
+
+print()
+
+# Question 9
+print("9. Make a choice: \nA: Profit of CHF 50'000 with a probability of 80% \nB: Profit of CHF 30'000 with a probability of 100%")
+choice = input("enter your choice (A/B): ")
+if choice.upper () == "A":
+  print("you have chosen the first answer")
+  points += 0
+elif choice.upper () == "B":
+  print("you have chosen the second answer")
+  points += 0
+else:
+    print("Invalid choice. Please choose either A or B.")
+    exit()
+
+
+print("thank you for your answers")
+print()
+
+print("you have collected: ", points, "points")
+
+print("your investment type is: ")
+if 9 <= points <= 14:
+    print("Conservative investor")
+if 15 <= points <= 21:
+    print("moderate investor")
+if 22 <= points <= 27:
+    print("aggressive investor")
+
         
