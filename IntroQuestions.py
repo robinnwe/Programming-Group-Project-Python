@@ -1,4 +1,3 @@
-
 # You start with 0 points which must be defined, so the points of the answers can be added
 
 points = 0
@@ -35,7 +34,6 @@ while True:
     
     else: 
         print("Invalid choice. Please choose either A, B or C.")
-
 
 print()
 
@@ -112,8 +110,7 @@ while True:
         
       else:
           print("Invalid choice. Please choose either A, B or C.")
-          
-      
+                
 print()
 
 # Question 3
@@ -137,8 +134,7 @@ while True:
         break#This will break the loop
       else:
           print("Invalid choice. Please choose either A, B or C.")
-    
-  
+      
 print()
 
 # Question 4
@@ -185,8 +181,7 @@ while True:
         points += 2
         break #This will break the loop
       else:
-          print("Invalid choice. Please choose either A, B or C.")
-          
+          print("Invalid choice. Please choose either A, B or C.")        
 
 print()
 
@@ -211,8 +206,7 @@ while True:
         break #This will break the loop
       else:
           print("Invalid choice. Please choose either A, B or C.")
-         
-      
+              
 print()
       
 # Question 7
@@ -255,8 +249,7 @@ while True:
         break #This will break the loop
       else:
           print("Invalid choice. Please choose either A or B.")
-          
-      
+               
 print()
 
 # Question 9 (added questions to the form, only choosing between A and B)
@@ -275,8 +268,7 @@ while True:
         break #This will break the loop
       else:
           print("Invalid choice. Please choose either A or B.")
-          
-      
+              
 # Spacing, Layout
 print()
 print()
@@ -303,6 +295,3 @@ if 16  <= points <= 19 :
     print("Type A = 4, aggressive investor")
 if 20  <= points <= 22 :
     print(" Type A = 3, extremely aggressive investor")
-
-
-        
