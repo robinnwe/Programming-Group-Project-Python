@@ -1,3 +1,8 @@
+# This program was written in Python programming language
+# Disclaimer: This is no investment advice
+# ChatGPT was used to correct and improve the program
+
+
 # Importing necessary libraries for the program
 
 # Standard Libraries
@@ -22,6 +27,7 @@ import seaborn as sns  # For enhanced visualization style
 # INTRO QUESTIONS WHICH DEFINE INVESTOR TYPE #
 ##############################################
 
+# Source: Bodie et al., 2024, pp. 174-175
 # You start with 0 points which must be defined, so the points of the answers can be added
 
 points = 0
@@ -526,16 +532,13 @@ plt.show()
 # PORTFOLIO OPTIMALIZATION MODULE #
 ###################################
 
-# This program was written in Python programming language
-# Disclaimer: This is no investment advice
-# ChatGPT was used to correct and improve the program
 
-# Step 2: Risk/Return optimization of the Risky Asset (portfolio of stocks)
+# Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
 # Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
 
 
 # Define the stocks that are of interest
-stocks = ["AMZN", "MSFT", "GOOG", "LIN", "SPY"]
+stocks = tickers
 end_date = datetime.today()  # Set the end date for the data to today
 start_date = end_date - relativedelta(years=10)  # Set the start date for the data to 10 years ago from today
 
@@ -628,7 +631,7 @@ else:
     print("Optimization did not converge.")
 
 
-# Step 3: Implement the coefficient or risk aversion to determine the optimal allocation in the risky and risk-free asset
+# Step 2: Implement the coefficient or risk aversion to determine the optimal allocation in the risky and risk-free asset
 # Source: Bodie et al., 2014, p. 182
 
 # Initialize variables for the expected return and standard deviation (volatility) of the risky asset
