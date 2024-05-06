@@ -60,7 +60,7 @@ while True:
     elif choice.upper () == "C":
       print("you have chosen the third answer")
       points += 2
-      break #This will break the loop 
+      break # This will break the loop 
     
     else: 
         print("Invalid choice. Please choose either A, B or C.")
@@ -341,7 +341,7 @@ if 20  <= points <= 22 :
 
 
 # Initial information print for the user
-print("\n\nYou have selected the module GENERAL INFORMATION & ANALYSIS.")
+print("\n\nYou are now in the module GENERAL INFORMATION & ANALYSIS.")
 print("This module provides an overview and financial analysis of publicly traded companies.")
 print("\nThe module progresses as follows:\n1. Enter a ticker symbol to fetch data.\n2. Review the data presented.\n3. Choose to inspect another company or exit.")
 
@@ -423,30 +423,37 @@ while True:
 # We then download the necessary stock information from yfinance
 
 
+
 # Define function to check if a ticker is valid using yfinance.
 def is_valid_ticker(ticker):
-        try:
-                stock = yf.Ticker(ticker)
-                info = stock.info
-                return "symbol" in info and info["symbol"] == ticker
-        except Exception:
-                return False
+    try:
+        stock = yf.Ticker(ticker)
+        info = stock.info
+        return "symbol" in info and info["symbol"] == ticker
+    except Exception:
+        return False
 
 # Define function to get the input from user and control for user input
 def get_valid_tickers():
-        while True:
-                tickers_input = input("Enter multiple tickers separated by commas (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+    while True:
+        tickers_input = input("Enter multiple tickers separated by commas (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+        if tickers_input and "," in tickers_input:
+            # Split the input string into individual tickers
+            tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
+                        
+            if len(tickers) < 3:
+                print("Please enter at least three tickers.")
+                continue
+                       
+            # Check if all tickers are valid
+            if all(is_valid_ticker(ticker) for ticker in tickers):
+                return tickers
+            else:
+                print("One or more tickers are invalid. Please provide valid tickers separated by commas.")
+        else:
+            print("Invalid input. Please enter tickers separated by commas.")
 
-                if tickers_input and "," in tickers_input:
-                        # Split the input string into individual tickers
-                        tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
-                # Check if all tickers are valid
-                        if all(is_valid_ticker(ticker) for ticker in tickers):
-                                return tickers
-                        else:
-                                print("One or more tickers are invalid. Please provide valid tickers separated by commas.")
-                else:
-                        print("Invalid input. Please enter tickers separated by commas.")
+              
 
 # Get the user input 
 tickers = get_valid_tickers()
@@ -459,8 +466,8 @@ multpl_stocks = yf.download(tickers,
 
 ###################################################
 
-#In this part we plot the stock infos of the inputed tickers and create a multiple figure
-#We plot the stock over 5 years and the respective standard deviation 
+# In this part we plot the stock infos of the inputed tickers and create a multiple figure
+# We plot the stock over 5 years and the respective standard deviation 
 
 # Assuming you have already obtained multpl_stocks data based on user input
 
@@ -511,29 +518,29 @@ plt.show()
 
 ################################################
 
-#In this part we calculate the daily and monthly returns of the stocks 
+# In this part we calculate the daily and monthly returns of the stocks 
 multpl_stock_daily_returns = multpl_stocks['Adj Close'].pct_change()
 multpl_stock_monthly_returns = multpl_stocks['Adj Close'].resample('M').ffill().pct_change()
 
 ###############################################
 
-#In this part we plot the above calculated returns 
+# In this part we plot the above calculated returns 
 fig = plt.figure()
 (multpl_stock_monthly_returns + 1).cumprod().plot()
 plt.show()
 
 #################################################
 
-#In this part we calculate the 50 and 200 days moving averages of our stocks 
+# In this part we calculate the 50 and 200 days moving averages of our stocks 
 
-#we use this function to download the info over a 300 days interval 
+# we use this function to download the info over a 300 days interval 
 multpl_stocks = {ticker: yf.download(ticker, period='300d') for ticker in tickers} 
 
-#We plot the subplots with the a sharing x-axes based on our tickers
+# We plot the subplots with the a sharing x-axes based on our tickers
 fig, axes = plt.subplots(nrows=len(tickers), ncols=1, figsize=(10, 15), sharex=True)
 
-#Here we plot the closing prices in black, 50 days MA in blue and 200 days MA in red
-#We also label x and y axes and legend our graph   
+# Here we plot the closing prices in black, 50 days MA in blue and 200 days MA in red
+# We also label x and y axes and legend our graph   
 for ax, (ticker, df) in zip(axes, multpl_stocks.items()):
     df['Close'].plot(ax=ax, label='Closing Price', color='black')
     df['50_MA'] = df['Close'].rolling(window=50).mean()
@@ -543,7 +550,7 @@ for ax, (ticker, df) in zip(axes, multpl_stocks.items()):
     
     ax.set_title(ticker)
     ax.legend()
-#here we do some layout to make it more clear
+# Here we do some layout to make it more clear
 plt.tight_layout()
 plt.savefig("simplefinance.png", dpi=200)
 plt.show()
@@ -559,7 +566,7 @@ plt.show()
 # Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
 
 # Initial information print for the user
-print("\n\nIn the following, the return for a given level of risk will be maximized using the Sharpe Ratio.")
+print("\n\nIn the following, the return of the risky asset for a given level of risk will be maximized using the Sharpe Ratio.")
 print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight")
 print("In a second step, the investors degree of risk aversion from the first module is incorporated.")
 print("This is done to determine the amount of wealth (%) that should be invested in the risk-free asset given the risk preferences.\n\n")
@@ -650,7 +657,8 @@ if optimized_results.success:
     plt.ylabel("Optimal Weights")  # Label for the y-axis
     plt.title("Optimal Portfolio Weights")  # Title of the chart
     plt.show()  # Display the chart 
-         
+
+    print("Risky Asset:")     
     print(f"\n\nThe Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
     print(f"The Expected Volatility of the Risky Asset is: {optimal_portfolio_volatility:.4f}")
     print(f"The Optimal Sharpe Ratio of the Risky Asset is: {optimal_sharpe_ratio:.4f}")
