@@ -419,15 +419,37 @@ while True:
 
 
 
-#In this module we ask the user to input tickers from the stocks he wants tu use
-#We then download the necessary stock information from yfinance
+# In this module we ask the user to input tickers from the stocks he wants tu use
+# We then download the necessary stock information from yfinance
 
 
-# Get input from the user
-tickers_input = input("Enter multiple tickers separated by commas (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ")
+# Define function to check if a ticker is valid using yfinance.
+def is_valid_ticker(ticker):
+        try:
+                stock = yf.Ticker(ticker)
+                info = stock.info
+                return "symbol" in info and info["symbol"] == ticker
+        except Exception:
+                return False
 
-# Split the input string into individual tickers
-tickers = [ticker.strip() for ticker in tickers_input.split(',')]
+# Define function to get the input from user and control for user input
+def get_valid_tickers():
+        while True:
+                tickers_input = input("Enter multiple tickers separated by commas (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+
+                if tickers_input and "," in tickers_input:
+                        # Split the input string into individual tickers
+                        tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
+                # Check if all tickers are valid
+                        if all(is_valid_ticker(ticker) for ticker in tickers):
+                                return tickers
+                        else:
+                                print("One or more tickers are invalid. Please provide valid tickers separated by commas.")
+                else:
+                        print("Invalid input. Please enter tickers separated by commas.")
+
+# Get the user input 
+tickers = get_valid_tickers()
 
 # Download data for the specified tickers
 multpl_stocks = yf.download(tickers,
@@ -536,6 +558,11 @@ plt.show()
 # Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
 # Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
 
+# Initial information print for the user
+print("\n\nIn the following, the return for a given level of risk will be maximized using the Sharpe Ratio.")
+print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight")
+print("In a second step, the investors degree of risk aversion from the first module is incorporated.")
+print("This is done to determine the amount of wealth (%) that should be invested in the risk-free asset given the risk preferences.\n\n")
 
 # Define the stocks that are of interest
 stocks = tickers
@@ -559,7 +586,7 @@ for stock in stocks:
 while True:
     try:
         # Request input from the user for the risk-free rate in decimal form
-        risk_free_rate = float(input("Please insert the risk-free rate you would like to use (e.g., 0.04 for 4%): "))
+        risk_free_rate = float(input("\nPlease insert the risk-free rate you would like to use (e.g., 0.04 for 4%): "))
         # Validate if the input rate is within the logical range (-1, 1) -> risk-free rate might be negative
         if not -1 < risk_free_rate < 1:
             print("Please enter a rate between -1 and 1.")
@@ -612,7 +639,7 @@ optimal_sharpe_ratio = sharpe_ratio(optimal_weights, log_returns, cov_matrix, ri
 
 # Check if the optimization was successful, show performance metrics and weigths allocated to each stock
 if optimized_results.success:
-    print("The following weights were allocated to each stock (in decimals):")
+    print("\n\nThe following weights were allocated to each stock (in decimals):")
     for stock, weight in zip(stocks, optimal_weights): 
         print(f"{stock}: {weight: .4f}")
     
@@ -624,11 +651,11 @@ if optimized_results.success:
     plt.title("Optimal Portfolio Weights")  # Title of the chart
     plt.show()  # Display the chart 
          
-    print(f"The Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
+    print(f"\n\nThe Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
     print(f"The Expected Volatility of the Risky Asset is: {optimal_portfolio_volatility:.4f}")
     print(f"The Optimal Sharpe Ratio of the Risky Asset is: {optimal_sharpe_ratio:.4f}")
 else:
-    print("Optimization did not converge.")
+    print("\n\nOptimization did not converge.")
 
 
 # Step 2: Implement the coefficient or risk aversion to determine the optimal allocation in the risky and risk-free asset
@@ -657,12 +684,12 @@ portfolio_return = weight_risky_asset * risky_asset_return + weight_risk_free_as
 portfolio_sd = weight_risky_asset * risky_asset_sd
 
 # Print the optimal allocations for both the risky and risk-free assets
-print(f"Given your degree of risk aversion, the optimal percentage of your wealth allocated in the Risky Asset is: {weight_risky_asset:.2f} %.")
+print(f"\n\nGiven your degree of risk aversion, the optimal percentage of your wealth allocated in the Risky Asset is: {weight_risky_asset:.2f} %.")
 print(f"Consequently, the optimal percentage of your wealth allocated in the Risk-Free Asset is: {weight_risk_free_asset:.2f} %.")
 
 # Print portfolio return and standard deviation
-print(f"Your final portfolio will yield {portfolio_return:.2f} % in return and has a volatility of {portfolio_sd:.2f} %.")
+print(f"\n\nYour final portfolio will yield {portfolio_return:.2f} % in return and has a volatility of {portfolio_sd:.2f} %.")
 
 # Print Farewell message
-print("Thank you very much for using our program.")
+print("\n\nThank you very much for using our program.")
 
