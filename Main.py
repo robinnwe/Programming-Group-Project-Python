@@ -423,7 +423,9 @@ while True:
 # We then download the necessary stock information from yfinance
 
 print("\n\nYou are now in the module VISUALIZATION AND CHARTING.")
-print("This module provides graphical information on the stock of desired companies such as monthly returns, standard deviation and stock prices.")
+print("This module provides graphical information on the stock of") 
+print("desired companies such as monthly returns, standard deviation") 
+print("and stock prices.")
 print("\nThe module progresses as follows:\n1. Enter multiple ticker symbols to fetch data.\n2. Review the data presented with plots and graphs.")
 
 
