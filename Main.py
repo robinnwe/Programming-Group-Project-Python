@@ -27,7 +27,7 @@ import seaborn as sns  # For enhanced visualization style
 # INTRO QUESTIONS WHICH DEFINE INVESTOR TYPE #
 ##############################################
 
-# Source: Bodie et al., 2024, pp. 174-175
+# Source: Bodie et al., 2024, pp. 174-175; Schmeiser, 2024, p.23
 # You start with 0 points which must be defined, so the points of the answers can be added
 
 points = 0
@@ -456,7 +456,7 @@ def get_valid_tickers():
             else:
                 print("One or more tickers are invalid. Please provide valid tickers separated by commas.")
         else:
-            print("Invalid input. Please enter tickers separated by commas.")
+            print("Invalid input. Please enter at least three tickers separated by commas.")
 
               
 
@@ -582,7 +582,7 @@ plt.show()
 
 # Initial information print for the user
 print("\n\nIn the following, the return of the risky asset for a given level of risk will be maximized using the Sharpe Ratio.")
-print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight")
+print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight.")
 print("In a second step, the investors degree of risk aversion from the first module is incorporated.")
 print("This is done to determine the amount of wealth (%) that should be invested in the risk-free asset given the risk preferences.\n\n")
 
@@ -608,7 +608,7 @@ for stock in stocks:
 while True:
     try:
         # Request input from the user for the risk-free rate in decimal form
-        risk_free_rate = float(input("\nPlease insert the risk-free rate you would like to use (e.g., 0.04 for 4%): "))
+        risk_free_rate = float(input("\n\nPlease insert the risk-free rate you would like to use (e.g., 0.04 for 4%): "))
         # Validate if the input rate is within the logical range (-1, 1) -> risk-free rate might be negative
         if not -1 < risk_free_rate < 1:
             print("Please enter a rate between -1 and 1.")
@@ -669,12 +669,12 @@ if optimized_results.success:
     plt.figure(figsize=(10, 6))
     plt.bar(stocks, optimal_weights)  # Create a bar chart
     plt.xlabel("Stocks")  # Label for the x-axis
-    plt.ylabel("Optimal Weights")  # Label for the y-axis
+    plt.ylabel("Optimal Weights (%)")  # Label for the y-axis
     plt.title("Optimal Portfolio Weights")  # Title of the chart
     plt.show()  # Display the chart 
 
-    print("Risky Asset:")     
-    print(f"\n\nThe Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
+    print("\n\nRisky Asset:")     
+    print(f"The Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
     print(f"The Expected Volatility of the Risky Asset is: {optimal_portfolio_volatility:.4f}")
     print(f"The Optimal Sharpe Ratio of the Risky Asset is: {optimal_sharpe_ratio:.4f}")
 else:
