@@ -422,6 +422,9 @@ while True:
 # In this module we ask the user to input tickers from the stocks he wants tu use
 # We then download the necessary stock information from yfinance
 
+print("\n\nYou are now in the module VISUALIZATION AND CHARTING.")
+print("This module provides graphical information on the stock of desired companies such as monthly returns, standard deviation and stock prices.")
+print("\nThe module progresses as follows:\n1. Enter multiple ticker symbols to fetch data.\n2. Review the data presented with plots and graphs.")
 
 
 # Define function to check if a ticker is valid using yfinance.
@@ -476,12 +479,14 @@ fig = plt.figure()
 
 # Determine the number of subplots based on the number of tickers
 num_plots = len(tickers)
+fig, axes = plt.subplots(num_plots, 1, figsize=(8, 12))
 
-# Create subplots dynamically based on the number of tickers
-for i, ticker in enumerate(tickers, 1):
-    ax = fig.add_subplot(num_plots, 1, i)
+# Iterate through tickers and create subplots
+for ax, ticker in zip(axes, tickers):
     ax.plot(multpl_stocks['Close'][ticker])
     ax.set_title(ticker)
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Close Price')
 
 # Adjust layout
 plt.tight_layout()
@@ -511,7 +516,7 @@ plt.figure(figsize=(8, 6))
 plt.bar(stocks, std_values, color='skyblue')
 plt.title('Standard Deviation of Monthly Returns')
 plt.xlabel('Stocks')
-plt.ylabel('Standard Deviation')
+plt.ylabel("Standard Deviation (in%)")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
@@ -528,7 +533,15 @@ multpl_stock_monthly_returns = multpl_stocks['Adj Close'].resample('M').ffill().
 fig = plt.figure()
 (multpl_stock_monthly_returns + 1).cumprod().plot()
 plt.show()
+# Add labels
+plt.xlabel('Date')
+plt.ylabel("Cumulative Returns (in%)")
 
+# Add a legend
+plt.legend(loc='upper left')
+
+# Show the plot
+plt.show()
 #################################################
 
 # In this part we calculate the 50 and 200 days moving averages of our stocks 
@@ -537,7 +550,7 @@ plt.show()
 multpl_stocks = {ticker: yf.download(ticker, period='300d') for ticker in tickers} 
 
 # We plot the subplots with the a sharing x-axes based on our tickers
-fig, axes = plt.subplots(nrows=len(tickers), ncols=1, figsize=(10, 15), sharex=True)
+fig, axes = plt.subplots(nrows=len(tickers), ncols=1, figsize=(10, 15))
 
 # Here we plot the closing prices in black, 50 days MA in blue and 200 days MA in red
 # We also label x and y axes and legend our graph   
