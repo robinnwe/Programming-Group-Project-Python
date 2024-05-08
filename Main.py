@@ -408,7 +408,7 @@ while True:
         print(f"\nFailed to retrieve data for {ticker}. Error: {e}")
 
     # Ask user if they want to inspect another company
-    if input("\nDo you wish to inspect another company? (yes/no): ").lower() != 'yes':
+    if input("\nWrite 'yes' if you want to analyze another company. To proceed with the next module, write anything else than 'yes': ").lower() != 'yes':
         break
 
 
