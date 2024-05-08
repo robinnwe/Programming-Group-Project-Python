@@ -1,4 +1,4 @@
-# This program was written in Python programming language
+# This program is written in Python programming language
 # Disclaimer: This is no investment advice
 # ChatGPT was used to correct and improve the program
 
@@ -27,6 +27,8 @@ import seaborn as sns  # For enhanced visualization style
 # INTRO QUESTIONS WHICH DEFINE INVESTOR TYPE #
 ##############################################
 
+
+
 # Source: Bodie et al., 2024, pp. 174-175; Schmeiser, 2024, p.23
 # You start with 0 points which must be defined, so the points of the answers can be added
 
@@ -34,310 +36,278 @@ points = 0
 
 # Introduction
 print("Hey there, ")
-print( "answer the following questions to see what type of investor you are. Do so by choosing between A, B or C. ")
+print("Answer the following questions to see what type of investor you are. Do so by choosing between A, B or C. ")
 print("Let's begin!")
-
-# spacing, better layout
-print()
-print()
 
 # Question 1, giving the user three different options to choose from, depending on the chosen answer, the points will be added
 # \n for better layout
-print("1. Just 60 days after you put money into an investment, its price falls 20%. Assuming none of the fundamentals have changed, what would you do? ")
+print("\n1. Just 60 days after you put money into an investment, its price falls 20%. Assuming none of the fundamentals have changed, what would you do? ")
 print("\nA: Sell to avoid further worry and try something else, ") 
 print("\nB: Do nothing and wait for the investment to come back, ")
 print("\nC: Buy more. It was a good investment before; now it's a cheap investment, too ")
-while True: 
+while True:
     choice = input("\nenter your choice (A/B/C): ")
     if choice.upper () == "A":
-      print("you have chosen the first answer")
-      points += 0
-      break
+        print("you have chosen the first answer")
+        points += 0
+        break
     elif choice.upper () == "B":
-      print("you have chosen the second answer")
-      points += 1
-      break
+        print("you have chosen the second answer")
+        points += 1
+        break
     elif choice.upper () == "C":
-      print("you have chosen the third answer")
-      points += 2
-      break # This will break the loop 
-    
+        print("you have chosen the third answer")
+        points += 2
+        break # This will break the loop 
     else: 
         print("Invalid choice. Please choose either A, B or C.")
 
-print()
-
 # Question 2a
-print("2. Now look at the previous question another way. Your investment fell 20%, but it's part of a portfolio being used to meet investment goals with three different time horizons. ")
+print("\n2. Now look at the previous question another way. Your investment fell 20%, but it's part of a portfolio being used to meet investment goals with three different time horizons. ")
 print("\n2a. What would you do if the goal were five years away? ")
-print( "\nA: Sell ")
-print( "\nB: Do nothing")
-print( "\nC: Buy more")
-while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+print("\nA: Sell ")
+print("\nB: Do nothing")
+print("\nC: Buy more")
+while True: 
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
-        break #This will break the loop
-        
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-        
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
+
 
 # Question 2b
-print("2b. What would you do if the goal were 15 years away? ")
-print( "\nA: Sell ")
-print( "\nB: Do nothing ")
-print( "\nC: Buy more")
+print("\n2b. What would you do if the goal were 15 years away? ")
+print("\nA: Sell ")
+print("\nB: Do nothing ")
+print("\nC: Buy more")
 while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
-        break #This will break the loop
-        
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-             
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
+
 
 # Question 2c
-print("2c. What would you do if the goal were 30 years away? ")
-print( "\nA: Sell ")
-print( "\nB: Do nothing ")
-print( "\nC: Buy more")
+print("\n2c. What would you do if the goal were 30 years away? ")
+print("\nA: Sell ")
+print("\nB: Do nothing ")
+print("\nC: Buy more")
 while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
-        break #This will break the loop
-        
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-                
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
+          
 
 # Question 3
-print("3. The price of your retirement investment jumps 25% a month after you buy it. Again, the fundamentals haven't changed. After you finish gloating, what do you do? ")
-print( "\nA: Sell it and lock in your gains ")
-print( "\nB: Stay put and hope for more gain ")
-print( "\nC: Buy more; it could go higher")
+print("\n3. The price of your retirement investment jumps 25% a month after you buy it. Again, the fundamentals haven't changed. After you finish gloating, what do you do? ")
+print("\nA: Sell it and lock in your gains ")
+print("\nB: Stay put and hope for more gain ")
+print("\nC: Buy more; it could go higher")
 while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
-        break#This will break the loop
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-      
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
 
 # Question 4
-print("4. You're investing for retirement, which is 15 years away. Which would you rather do? ")
-print( "\nA: Invest in a money-market fund or guaranteed investment contract, giving up the possibility of major gains, but virtually assuring the safety of your principal ")
-print(" \nB: Invest in a 50-50 mix of bond funds and stock funds, in hopes of getting some growth, but also giving yourself some protection in the form of steady income ")
-print( "\nC: Invest in aggressive growth mutual funds whose value will probably fluctuate significantly during the year, but have the potential for impressive gains over five or 10 years ")
+print("\n4. You're investing for retirement, which is 15 years away. Which would you rather do? ")
+print("\nA: Invest in a money-market fund or guaranteed investment contract, giving up the possibility of major gains, but virtually assuring the safety of your principal ")
+print("\nB: Invest in a 50-50 mix of bond funds and stock funds, in hopes of getting some growth, but also giving yourself some protection in the form of steady income ")
+print("\nC: Invest in aggressive growth mutual funds whose value will probably fluctuate significantly during the year, but have the potential for impressive gains over five or 10 years ")
 while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
-        break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-         
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
       
+    
 # Question 5
-print("5. You just won a big prize! But which one? It's up to you. ")
-print( "\nA: $2,000 in cash ")
-print( "\nB: A 50% chance to win $5,000") 
-print( "\nC: A 20% chance to win $15,000")
+print("\n5. You just won a big prize! But which one? It's up to you. ")
+print("\nA: $2,000 in cash ")
+print("\nB: A 50% chance to win $5,000") 
+print("\nC: A 20% chance to win $15,000")
 while True: 
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
         break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A, B or C.")        
-
-print()
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
+          
 
 # Question 6
-print("6. A good investment opportunity just came along. But you have to borrow money to get in. Would you take out a loan? ")
-print( "\nA: Definitely not ")
-print( "\nB: Perhaps ")
-print( "\nC: yes")
+print("\n6. A good investment opportunity just came along. But you have to borrow money to get in. Would you take out a loan? ")
+print("\nA: Definitely not ")
+print("\nB: Perhaps ")
+print("\nC: yes")
 while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 0
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 1
         break
-      elif choice.upper () == "C":
+    elif choice.upper () == "C":
         print("you have chosen the third answer")
         points += 2
         break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
-              
-print()
-      
-# Question 7
-print("7. Your company is selling stock to its employees. In three years, management plans to take the company public. Until then, you won't be able to sell your shares and you will get no dividends. But your investment could multiply as much as 10 times when the company goes public. How much money would you invest? ")
-print( "\nA: None ") 
-print( "\nB: Two months' salary ")
-print( "\nC: Four months' salary")
-while True:
-      choice = input("\nenter your choice (A/B/C): ")
-      if choice.upper () == "A":
-        print("you have chosen the first answer")
-        points += 0
-        break
-      elif choice.upper () == "B":
-        print("you have chosen the second answer")
-        points += 1
-        break
-      elif choice.upper () == "C":
-        print("you have chosen the third answer")
-        points += 2
-        break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A, B or C.")
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
          
-print()
-      
-# Question 8 (added questions to the form, only choosing between A and B)
-print("8. Make a choice: ")
-print( "\nA: a probability of 25% for a profit of CHF 30'000 ")
+        
+# Question 7
+print("\n7. Your company is selling stock to its employees. In three years, management plans to take the company public. Until then, you won't be able to sell your shares and you will get no dividends. But your investment could multiply as much as 10 times when the company goes public. How much money would you invest? ")
+print("\nA: None ") 
+print("\nB: Two months' salary ")
+print("\nC: Four months' salary")
+while True:
+    choice = input("\nenter your choice (A/B/C): ")
+    if choice.upper () == "A":
+        print("you have chosen the first answer")
+        points += 0
+        break
+    elif choice.upper () == "B":
+        print("you have chosen the second answer")
+        points += 1
+        break
+    elif choice.upper () == "C":
+        print("you have chosen the third answer")
+        points += 2
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A, B or C.")
+        
+        
+# Question 8 
+print("\n8. Make a choice: ")
+print("\nA: a probability of 25% for a profit of CHF 30'000 ")
 print("\nB: a probability of 20% for a profit of CHF 45'000")
 while True:
-      choice = input("\nenter your choice (A/B): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 1
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 2
-        break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A or B.")
-               
-print()
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A or B.")
+          
 
-# Question 9 (added questions to the form, only choosing between A and B)
-print("9. Make a choice: ")
-print( "\nA: Profit of CHF 50'000 with a probability of 80% ")
-print( "\nB: Profit of CHF 30'000 with a probability of 100%")
+# Question 9 
+print("\n9. Make a choice: ")
+print("\nA: Profit of CHF 30'000 with a probability of 100%")
+print("\nB: Profit of CHF 50'000 with a probability of 80%")
 while True:
-      choice = input("\nenter your choice (A/B): ")
-      if choice.upper () == "A":
+    choice = input("\nenter your choice (A/B): ")
+    if choice.upper () == "A":
         print("you have chosen the first answer")
         points += 1
         break
-      elif choice.upper () == "B":
+    elif choice.upper () == "B":
         print("you have chosen the second answer")
         points += 2
-        break #This will break the loop
-      else:
-          print("Invalid choice. Please choose either A or B.")
-              
-# Spacing, Layout
-print()
-print()
-print()
-
+        break # This will break the loop
+    else:
+        print("Invalid choice. Please choose either A or B.")
+          
 # Introduction of the results
-print("thank you for your answers")
-print()
+print("\nThank you for your answers.")
 
-# telling the user the amount of collected points
-print("you have collected: ", points, "points")
+# Telling the user the amount of collected points
+print("You have collected: ", points, "points")
 
-# depending on the amout of points, the user will be assigned a type of investor
-print("your investment type is: ")
+# Depending on the amount of points, the user will be assigned a coefficient of risk aversion A
+print("Your coefficient of risk aversion is: ")
 if 0 <= points <= 3:
-    A = 8
-    print( "Type A = 8, extremely conservative")
+    print( "A = 8, extremely conservative")
 if 4 <= points <= 7:
-    A = 7
-    print("Type A = 7, conservative investor")
+    print("A = 7, conservative investor")
 if 8 <= points <= 11 :
-    A = 6
-    print("Type A = 6, conservative to moderate investor ")
+    print("A = 6, conservative to moderate investor ")
 if 12 <= points <= 15 :
-    A = 5
-    print("Type A = 5, moderate to aggressive investor")
+    print("A = 5, moderate to aggressive investor")
 if 16  <= points <= 19 :
-    A = 4
-    print("Type A = 4, aggressive investor")
+    print("A = 4, aggressive investor")
 if 20  <= points <= 22 :
-    A = 3
-    print(" Type A = 3, extremely aggressive investor")
-
+    print("A = 3, extremely aggressive investor")
 
 
 
 ########################################################
 # STOCK PICKER: GENERAL INFORMATION AND RATIO ANALYSIS #
 ########################################################
+
 
 
 # Initial information print for the user
@@ -390,7 +360,11 @@ def fetch_financial_ratios(ticker):
 
 # Main loop
 while True:
-    ticker = input("\nWhat company do you wish to inspect? \n\nTICKER: ")
+    ticker = input("\nWhat company do you wish to inspect? \n\nTICKER: ").strip().upper()
+    if not ticker.isalpha():
+        print("Invalid input. Please enter a valid ticker symbol consisting of letters only.")
+        continue
+
     try:
         # Fetch and display general company information
         general_info = fetch_general_info(ticker)
@@ -403,12 +377,13 @@ while True:
         ratios = fetch_financial_ratios(ticker)
         print(f"\nFINANCIAL RATIOS:\n{pd.DataFrame.from_dict(ratios, orient='index')}")
 
-    except ValueError as e:
+    except Exception as e:
         # Handle exceptions by printing an error message
         print(f"\nFailed to retrieve data for {ticker}. Error: {e}")
 
     # Ask user if they want to inspect another company
-    if input("\nWrite 'yes' if you want to analyze another company. To proceed with the next module, write anything else than 'yes': ").lower() != 'yes':
+    response = input("\nWrite 'yes' to analyze another company. Write anything else to exit: ").lower()
+    if response != 'yes':
         break
 
 
@@ -419,14 +394,14 @@ while True:
 
 
 
-# In this module we ask the user to input tickers from the stocks he wants tu use
+# In this module we ask the user to input tickers from the stocks he wants to use as Risky Asset
 # We then download the necessary stock information from yfinance
 
 print("\n\nYou are now in the module VISUALIZATION AND CHARTING.")
-print("This module provides graphical information on the stock of") 
-print("desired companies such as monthly returns, standard deviation") 
+print("This module provides graphical information on the stocks of") 
+print("desired companies that will constitute the Risky Asset such as monthly returns, standard deviation") 
 print("and stock prices.")
-print("\nThe module progresses as follows:\n1. Enter multiple ticker symbols to fetch data.\n2. Review the data presented with plots and graphs.")
+print("\nThe module progresses as follows:\n1. Enter multiple ticker symbols to fetch visual data.\n2. Review the data presented with plots and graphs.")
 
 
 # Define function to check if a ticker is valid using yfinance.
@@ -441,7 +416,7 @@ def is_valid_ticker(ticker):
 # Define function to get the input from user and control for user input
 def get_valid_tickers():
     while True:
-        tickers_input = input("Enter multiple tickers separated by commas (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+        tickers_input = input("\nPlease determine the composition of the Risky Asset by entering your final multiple tickers separated by commas. (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
         if tickers_input and "," in tickers_input:
             # Split the input string into individual tickers
             tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
@@ -458,8 +433,6 @@ def get_valid_tickers():
         else:
             print("Invalid input. Please enter at least three tickers separated by commas.")
 
-              
-
 # Get the user input 
 tickers = get_valid_tickers()
 
@@ -467,7 +440,6 @@ tickers = get_valid_tickers()
 multpl_stocks = yf.download(tickers,
                             start="2019-05-04",
                             end="2024-04-26")
-
 
 ###################################################
 
@@ -488,7 +460,7 @@ for ax, ticker in zip(axes, tickers):
     ax.plot(multpl_stocks['Close'][ticker])
     ax.set_title(ticker)
     ax.set_xlabel('Date')
-    ax.set_ylabel('Close Price')
+    ax.set_ylabel('Close Price in $')
 
 # Adjust layout
 plt.tight_layout()
@@ -498,8 +470,6 @@ plt.show()
 
 # Calculate the monthly returns for each ticker
 monthly_returns = multpl_stocks['Close'].pct_change()
-
-
 
 # Get the standard deviation of the inputed stocks
 # Assuming std_dev is a pandas Series containing standard deviations of the inputted stocks
@@ -513,7 +483,7 @@ stocks = list(filtered_std_dev.keys())
 std_values = list(filtered_std_dev.values())
 
 # Plot the standard deviations
-#We also label x and y axes, legend our graph and use layout
+# We also label x and y axes, legend our graph and use layout
 plt.figure(figsize=(8, 6))
 plt.bar(stocks, std_values, color='skyblue')
 plt.title('Standard Deviation of Monthly Returns')
@@ -544,6 +514,7 @@ plt.legend(loc='upper left')
 
 # Show the plot
 plt.show()
+
 #################################################
 
 # In this part we calculate the 50 and 200 days moving averages of our stocks 
@@ -577,11 +548,12 @@ plt.show()
 ###################################
 
 
+
 # Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
 # Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
 
 # Initial information print for the user
-print("\n\nIn the following, the return of the risky asset for a given level of risk will be maximized using the Sharpe Ratio.")
+print("\n\nIn the following, the risk and return of the risky asset will be optimized using the Sharpe Ratio.")
 print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight.")
 print("In a second step, the investors degree of risk aversion from the first module is incorporated.")
 print("This is done to determine the amount of wealth (%) that should be invested in the risk-free asset given the risk preferences.\n\n")
@@ -608,7 +580,7 @@ for stock in stocks:
 while True:
     try:
         # Request input from the user for the risk-free rate in decimal form
-        risk_free_rate = float(input("\n\nPlease insert the risk-free rate you would like to use (e.g., 0.04 for 4%): "))
+        risk_free_rate = float(input("\n\nPlease insert the return (risk-free rate) of Risk-free Asset you would like to invest in to adjust the risk given your degree of risk aversion (e.g., 0.04 for 4%): "))
         # Validate if the input rate is within the logical range (-1, 1) -> risk-free rate might be negative
         if not -1 < risk_free_rate < 1:
             print("Please enter a rate between -1 and 1.")
@@ -669,7 +641,7 @@ if optimized_results.success:
     plt.figure(figsize=(10, 6))
     plt.bar(stocks, optimal_weights)  # Create a bar chart
     plt.xlabel("Stocks")  # Label for the x-axis
-    plt.ylabel("Optimal Weights (%)")  # Label for the y-axis
+    plt.ylabel("Optimal Weights (in %)")  # Label for the y-axis
     plt.title("Optimal Portfolio Weights")  # Title of the chart
     plt.show()  # Display the chart 
 
@@ -714,5 +686,5 @@ print(f"Consequently, the optimal percentage of your wealth allocated in the Ris
 print(f"\n\nYour final portfolio will yield {portfolio_return:.2f} % in return and has a volatility of {portfolio_sd:.2f} %.")
 
 # Print Farewell message
-print("\n\nThank you very much for using our program.")
+print("\n\nThank you very much for using our program. Goodbye.")
 
