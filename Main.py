@@ -364,34 +364,75 @@ def fetch_financial_ratios(ticker):
     }
     return ratios
 
+# Function to plot stock price and moving averages
 def plot_price_and_moving_averages(ticker):
-    # Fetch data for the ticker
+    """
+    Plots the closing prices and moving averages for a given stock ticker.
+    
+    Args:
+    ticker (str): The stock ticker symbol for which to download and plot data.
+    """
+    # Fetch historical stock price data for the specified ticker over the last 300 days
     data = yf.download(ticker, period='300d')
+    
+    # Initialize a new plot with specified dimensions
     plt.figure(figsize=(10, 5))
+    
+    # Plot the closing prices in black
     data['Close'].plot(label='Closing Price', color='black')
+    
+    # Calculate and plot the 50-day moving average in blue
     data['50_MA'] = data['Close'].rolling(window=50).mean()
     data['50_MA'].plot(label='50-Day MA', color='blue')
+    
+    # Calculate and plot the 200-day moving average in red
     data['200_MA'] = data['Close'].rolling(window=200).mean()
     data['200_MA'].plot(label='200-Day MA', color='red')
     
+    # Set the title, legend, and axis labels
     plt.title(f"{ticker} - Price and Moving Averages")
     plt.legend()
     plt.xlabel('Date')
     plt.ylabel('Close Price in $')
+    
+    # Adjust layout to prevent overlap and then display the plot
     plt.tight_layout()
     plt.show()
 
+# Function to plot financial ratios
 def plot_financial_ratios(ratios):
+    """
+    Plots a bar chart of financial ratios.
+    
+    Args:
+    ratios (dict): A dictionary containing financial ratio names and their values.
+    """
+    # Create a figure for plotting
     plt.figure(figsize=(8, 6))
-    # Assuming ratios is a dictionary with financial ratio names and values
+    
+    # Convert the dictionary of ratios into a DataFrame and plot as a bar chart
     pd.DataFrame(list(ratios.items()), columns=['Ratio', 'Value']).set_index('Ratio').plot.bar(color='skyblue')
+    
+    # Set the plot title, and labels
     plt.title('Financial Ratios')
     plt.ylabel('Ratio Value')
+    
+    # Rotate the x-axis labels for better readability
     plt.xticks(rotation=45)
+    
+    # Adjust the layout and display the plot
     plt.tight_layout()
     plt.show()
     
+# Function to plot closing prices, monthly returns and rolling standard deviation
 def plot_stock_data(ticker):
+    """
+    Fetches historical stock data for a given ticker over the past 5 years and plots closing prices, 
+    monthly returns, and a rolling standard deviation of these returns.
+
+    Args:
+    ticker (str): Stock ticker symbol for which data is to be plotted.
+    """
     # Fetch historical data from the past 5 years
     stock_data = yf.download(ticker, period='5y')
 
@@ -427,30 +468,39 @@ def plot_stock_data(ticker):
     plt.tight_layout()
     plt.show()
 
+# Loop indefinitely to process multiple company inquiries
 while True:
+    # Prompt the user to enter a ticker symbol and format it to uppercase
     ticker = input("\nWhat company do you wish to inspect? \n\nTICKER: ").strip().upper()
+    
+    # Check if the input consists only of alphabetic characters (valid ticker)
     if not ticker.isalpha():
+        # Inform the user of invalid input and restart the loop
         print("Invalid input. Please enter a valid ticker symbol consisting of letters only.")
         continue
 
     try:
+        # Attempt to fetch general company information from an external function
         general_info = fetch_general_info(ticker)
+        
+        # Check if the company name is valid and data is available
         if 'Name' in general_info and general_info['Name'] != 'N/A':
+            # Display the general company information in a tabular format
             print(f"\nGENERAL INFORMATION:\n{pd.DataFrame.from_dict(general_info, orient='index')}")
         else:
+            # If data is invalid or unavailable, raise an error
             raise ValueError("Invalid ticker symbol or no data available.")
 
+        # Fetch financial ratios from an external function
         ratios = fetch_financial_ratios(ticker)
+        # Display financial ratios in a tabular format
         print(f"\nFINANCIAL RATIOS:\n{pd.DataFrame.from_dict(ratios, orient='index')}")
 
-        # Plotting
-        plot_price_and_moving_averages(ticker)
-        plot_financial_ratios(ratios)
-        plot_stock_data(ticker)
-
     except Exception as e:
+        # Handle any exceptions that occur during fetching and display an error message
         print(f"\nFailed to retrieve data for {ticker}. Error: {e}")
 
+    # Prompt the user to decide whether to continue analyzing other companies or to proceed with their selected stock portfolio
     response = input("\nWould you like to analyze another company? If so, please write 'yes'. Have you decided on the stock portfolio which will make your Risky Asset? If so, enter anything else to continue the program.").lower()
     if response.lower() != 'yes':
         break
@@ -471,33 +521,58 @@ print("\n\nIn this module, the risk and return of the risky asset will be optimi
 print("You will have to enter the tickers of the stocks that will constitute your Risky Asset first. Each ticker will be assigned the optimal weight.")
 print("In a second step, your degree of risk aversion from the first module is incorporated by allocating a percentage of your wealth to a risk-free asset.")
 
-# Define function to check if a ticker is valid using yfinance.
 def is_valid_ticker(ticker):
+    """
+    Checks if a given ticker symbol is valid by attempting to retrieve its information from Yahoo Finance.
+
+    Args:
+    ticker (str): The stock ticker symbol to validate.
+
+    Returns:
+    bool: True if the ticker is valid and exists in Yahoo Finance's database, False otherwise.
+    """
     try:
+        # Create a Ticker object from the yfinance library
         stock = yf.Ticker(ticker)
+        # Attempt to retrieve information about the ticker
         info = stock.info
+        # Check if 'symbol' is in the info dictionary and matches the input ticker
+        # This verifies that the fetched data corresponds to the requested ticker
         return "symbol" in info and info["symbol"] == ticker
     except Exception:
+        # If an error occurs during fetching or processing, assume the ticker is invalid
         return False
 
 # Define function to get the input from user and control for user input
 def get_valid_tickers():
+    """
+    Continuously prompts the user to enter a list of stock tickers until a valid list of at least three tickers is provided.
+    
+    Returns:
+    list of str: A list of validated ticker symbols that are recognized by Yahoo Finance.
+    """
     while True:
+        # Prompt the user to input multiple stock tickers separated by commas
         tickers_input = input("\nPlease determine the composition of the Risky Asset by entering your final multiple tickers (stocks) separated by commas. (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+        
+        # Check if input is not empty and contains commas, indicating multiple tickers
         if tickers_input and "," in tickers_input:
-            # Split the input string into individual tickers
+            # Convert the string of tickers into a list, removing spaces and converting to upper case
             tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
                         
+            # Ensure that the list contains at least three tickers
             if len(tickers) < 3:
                 print("Please enter at least three tickers.")
                 continue
                        
-            # Check if all tickers are valid
+            # Validate each ticker using the is_valid_ticker function; proceed only if all are valid
             if all(is_valid_ticker(ticker) for ticker in tickers):
-                return tickers
+                return tickers  # Return the list of validated tickers
             else:
+                # Inform the user if one or more tickers are invalid
                 print("One or more tickers are invalid. Please provide valid tickers separated by commas.")
         else:
+            # Prompt the user to correctly format their input if it does not meet the expected criteria
             print("Invalid input. Please enter at least three tickers separated by commas.")
 
 # Get the user input 
@@ -543,18 +618,72 @@ cov_matrix = log_returns.cov() * 252  # Annualize the covariance by multiplying 
 
 # Define a function to calculate the standard deviation of portfolio returns, which is a measure of risk
 def standard_deviation(weights, cov_matrix):
+    """
+    Calculates the portfolio standard deviation based on asset weights and the covariance matrix of asset returns.
+
+    Args:
+    weights (np.ndarray): An array of asset weights in the portfolio.
+    cov_matrix (np.ndarray): The covariance matrix of asset returns.
+
+    Returns:
+    float: The standard deviation of the portfolio, which quantifies its risk.
+    """
+    # Calculate the portfolio variance using matrix multiplication
+    # weights.T is the transpose of the weights array
+    # The operation @ denotes matrix multiplication in numpy
     return np.sqrt(weights.T @ cov_matrix @ weights)
 
 # Define a function to calculate the expected return of the portfolio
 def expected_return(weights, log_returns):
-    return np.sum(log_returns.mean() * weights) * 252  # Annualize by multiplying by the number of trading days
+    """
+    Calculates the expected annual return of a portfolio based on asset weights and their historical log returns.
+
+    Args:
+    weights (np.ndarray): An array representing the percentage of the total portfolio allocated to each asset.
+    log_returns (pd.DataFrame): A DataFrame containing log returns of the assets.
+
+    Returns:
+    float: The expected annual return of the portfolio.
+    """
+    # Calculate the mean log return for each asset, multiply by the corresponding weights,
+    # and sum the total to get the weighted average log return of the portfolio.
+    # Multiply by 252 to annualize the return, assuming 252 trading days in a year.
+    return np.sum(log_returns.mean() * weights) * 252 
 
 # Define a function to calculate the Sharpe ratio, which measures the performance of an investment compared to a risk-free asset
 def sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
+    """
+    Calculates the Sharpe Ratio for a portfolio, which is a measure of risk-adjusted return.
+
+    Args:
+    weights (np.ndarray): An array representing the percentage of the total portfolio allocated to each asset.
+    log_returns (pd.DataFrame): A DataFrame containing log returns of the assets.
+    cov_matrix (np.ndarray): The covariance matrix of asset returns.
+    risk_free_rate (float): The annual risk-free rate used to calculate excess returns.
+
+    Returns:
+    float: The Sharpe Ratio of the portfolio.
+    """
+    # Compute the Sharpe Ratio using the formula:
+    # (Portfolio Return - Risk-Free Rate) / Portfolio Standard Deviation
+    # This measures how much excess return is received for the extra volatility of holding a riskier asset.
     return (expected_return(weights, log_returns) - risk_free_rate) / standard_deviation(weights, cov_matrix)
 
 # Define the objective function to be minimized (negative Sharpe Ratio)
 def neg_sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate):
+    """
+    Calculates the negative Sharpe Ratio of a portfolio. The goal is to maximize the function, by minimizing the negative Sharpe Ratio.
+
+    Args:
+    weights (np.ndarray): An array representing the percentage of the total portfolio allocated to each asset.
+    log_returns (pd.DataFrame): A DataFrame containing log returns of the assets.
+    cov_matrix (np.ndarray): The covariance matrix of asset returns.
+    risk_free_rate (float): The annual risk-free rate used to calculate excess returns.
+
+    Returns:
+    float: The negative value of the Sharpe Ratio of the portfolio.
+    """
+    # Calculate the Sharpe Ratio using the predefined sharpe_ratio function
     return -sharpe_ratio(weights, log_returns, cov_matrix, risk_free_rate)
 
 # Constraints to ensure that the sum of portfolio weights is 1
