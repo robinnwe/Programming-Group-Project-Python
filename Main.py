@@ -290,28 +290,34 @@ print("You have collected: ", points, "points")
 # Depending on the amount of points, the user will be assigned a coefficient of risk aversion A
 print("Your coefficient of risk aversion is: ")
 if 0 <= points <= 3:
+    A = 8
     print( "A = 8, extremely conservative")
 if 4 <= points <= 7:
     print("A = 7, conservative investor")
+    A = 7
 if 8 <= points <= 11 :
     print("A = 6, conservative to moderate investor ")
+    A = 6
 if 12 <= points <= 15 :
     print("A = 5, moderate to aggressive investor")
+    A = 5
 if 16  <= points <= 19 :
     print("A = 4, aggressive investor")
+    A = 4
 if 20  <= points <= 22 :
     print("A = 3, extremely aggressive investor")
+    A = 3
 
 
 
-########################################################
-# STOCK PICKER: GENERAL INFORMATION AND RATIO ANALYSIS #
-########################################################
+#####################################################################
+# STOCK PICKER: GENERAL INFORMATION, RATIO ANALYSIS & VISUALIZATION #
+#####################################################################
 
 
 
 # Initial information print for the user
-print("\n\nYou are now in the module GENERAL INFORMATION & ANALYSIS.")
+print("\n\nYou are now in the module GENERAL INFORMATION, RATIO ANALYSIS & VISUALIZATION.")
 print("This module provides an overview and financial analysis of publicly traded companies.")
 print("\nThe module progresses as follows:\n1. Enter a ticker symbol to fetch data.\n2. Review the data presented.\n3. Choose to inspect another company or exit.")
 
@@ -358,7 +364,69 @@ def fetch_financial_ratios(ticker):
     }
     return ratios
 
-# Main loop
+def plot_price_and_moving_averages(ticker):
+    # Fetch data for the ticker
+    data = yf.download(ticker, period='300d')
+    plt.figure(figsize=(10, 5))
+    data['Close'].plot(label='Closing Price', color='black')
+    data['50_MA'] = data['Close'].rolling(window=50).mean()
+    data['50_MA'].plot(label='50-Day MA', color='blue')
+    data['200_MA'] = data['Close'].rolling(window=200).mean()
+    data['200_MA'].plot(label='200-Day MA', color='red')
+    
+    plt.title(f"{ticker} - Price and Moving Averages")
+    plt.legend()
+    plt.xlabel('Date')
+    plt.ylabel('Close Price in $')
+    plt.tight_layout()
+    plt.show()
+
+def plot_financial_ratios(ratios):
+    plt.figure(figsize=(8, 6))
+    # Assuming ratios is a dictionary with financial ratio names and values
+    pd.DataFrame(list(ratios.items()), columns=['Ratio', 'Value']).set_index('Ratio').plot.bar(color='skyblue')
+    plt.title('Financial Ratios')
+    plt.ylabel('Ratio Value')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+    
+def plot_stock_data(ticker):
+    # Fetch historical data from the past 5 years
+    stock_data = yf.download(ticker, period='5y')
+
+    # Calculate monthly returns
+    monthly_prices = stock_data['Adj Close'].resample('M').ffill()
+    monthly_returns = monthly_prices.pct_change().dropna()
+
+    # Calculate rolling standard deviation of monthly returns over 12 months
+    rolling_std = monthly_returns.rolling(window=12).std()
+
+    # Create a figure with three subplots
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(14, 12))
+
+    # Plot closing prices
+    ax1.plot(stock_data['Adj Close'], color='blue')
+    ax1.set_title(f'{ticker} Closing Prices')
+    ax1.set_ylabel('Price (in $)')
+    ax3.set_xlabel('Date')
+
+    # Plot monthly returns
+    ax2.plot(monthly_returns, color='green')
+    ax2.set_title(f'{ticker} Monthly Returns')
+    ax2.set_ylabel('Monthly Return (in %)')
+    ax3.set_xlabel('Date')
+
+    # Plot rolling standard deviation
+    ax3.plot(rolling_std, color='red')
+    ax3.set_title(f'{ticker} Rolling Standard Deviation of Returns (12 Months)')
+    ax3.set_ylabel('Standard Deviation (in %)')
+    ax3.set_xlabel('Date')
+
+    # Improve layout and display the plot
+    plt.tight_layout()
+    plt.show()
+
 while True:
     ticker = input("\nWhat company do you wish to inspect? \n\nTICKER: ").strip().upper()
     if not ticker.isalpha():
@@ -366,43 +434,42 @@ while True:
         continue
 
     try:
-        # Fetch and display general company information
         general_info = fetch_general_info(ticker)
         if 'Name' in general_info and general_info['Name'] != 'N/A':
             print(f"\nGENERAL INFORMATION:\n{pd.DataFrame.from_dict(general_info, orient='index')}")
         else:
             raise ValueError("Invalid ticker symbol or no data available.")
 
-        # Fetch and display financial ratios
         ratios = fetch_financial_ratios(ticker)
         print(f"\nFINANCIAL RATIOS:\n{pd.DataFrame.from_dict(ratios, orient='index')}")
 
+        # Plotting
+        plot_price_and_moving_averages(ticker)
+        plot_financial_ratios(ratios)
+        plot_stock_data(ticker)
+
     except Exception as e:
-        # Handle exceptions by printing an error message
         print(f"\nFailed to retrieve data for {ticker}. Error: {e}")
 
-    # Ask user if they want to inspect another company
-    response = input("\nWrite 'yes' to analyze another company. Write anything else to exit: ").lower()
-    if response != 'yes':
+    response = input("\nWould you like to analyze another company? If so, please write 'yes'. Have you decided on the stock portfolio which will make your Risky Asset? If so, enter anything else to continue the program.").lower()
+    if response.lower() != 'yes':
         break
 
+        
+        
+###################################
+# PORTFOLIO OPTIMALIZATION MODULE #
+###################################
 
 
-#####################################
-# VISUALIZATION AND CHARTING MODULE #
-#####################################
 
+# Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
+# Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
 
-
-# In this module we ask the user to input tickers from the stocks he wants to use as Risky Asset
-# We then download the necessary stock information from yfinance
-
-print("\n\nYou are now in the module VISUALIZATION AND CHARTING.")
-print("This module provides graphical information on the stocks of") 
-print("desired companies that will constitute the Risky Asset such as monthly returns, standard deviation") 
-print("and stock prices.")
-print("\nThe module progresses as follows:\n1. Enter multiple ticker symbols to fetch visual data.\n2. Review the data presented with plots and graphs.")
-
+# Initial information print for the user
+print("\n\nIn this module, the risk and return of the risky asset will be optimized using the Sharpe Ratio.")
+print("You will have to enter the tickers of the stocks that will constitute your Risky Asset first. Each ticker will be assigned the optimal weight.")
+print("In a second step, your degree of risk aversion from the first module is incorporated by allocating a percentage of your wealth to a risk-free asset.")
 
 # Define function to check if a ticker is valid using yfinance.
 def is_valid_ticker(ticker):
@@ -416,7 +483,7 @@ def is_valid_ticker(ticker):
 # Define function to get the input from user and control for user input
 def get_valid_tickers():
     while True:
-        tickers_input = input("\nPlease determine the composition of the Risky Asset by entering your final multiple tickers separated by commas. (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
+        tickers_input = input("\nPlease determine the composition of the Risky Asset by entering your final multiple tickers (stocks) separated by commas. (e.g., AFX.DE, NESN.SW, LIN, MDLZ): ").strip()
         if tickers_input and "," in tickers_input:
             # Split the input string into individual tickers
             tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
@@ -436,129 +503,7 @@ def get_valid_tickers():
 # Get the user input 
 tickers = get_valid_tickers()
 
-# Download data for the specified tickers
-multpl_stocks = yf.download(tickers,
-                            start="2019-05-04",
-                            end="2024-04-26")
-
-###################################################
-
-# In this part we plot the stock infos of the inputed tickers and create a multiple figure
-# We plot the stock over 5 years and the respective standard deviation 
-
-# Assuming you have already obtained multpl_stocks data based on user input
-
-# Create a new figure
-fig = plt.figure()
-
-# Determine the number of subplots based on the number of tickers
-num_plots = len(tickers)
-fig, axes = plt.subplots(num_plots, 1, figsize=(8, 12))
-
-# Iterate through tickers and create subplots
-for ax, ticker in zip(axes, tickers):
-    ax.plot(multpl_stocks['Close'][ticker])
-    ax.set_title(ticker)
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Close Price in $')
-
-# Adjust layout
-plt.tight_layout()
-
-# Display the plot
-plt.show()
-
-# Calculate the monthly returns for each ticker
-monthly_returns = multpl_stocks['Close'].pct_change()
-
-# Get the standard deviation of the inputed stocks
-# Assuming std_dev is a pandas Series containing standard deviations of the inputted stocks
-std_dev = monthly_returns.std()
-
-# Filter the standard deviations based on inputted tickers
-filtered_std_dev = {ticker: std_dev.loc[ticker] for ticker in tickers if ticker in std_dev}
-
-# Extract the stocks and their respective standard deviations
-stocks = list(filtered_std_dev.keys())
-std_values = list(filtered_std_dev.values())
-
-# Plot the standard deviations
-# We also label x and y axes, legend our graph and use layout
-plt.figure(figsize=(8, 6))
-plt.bar(stocks, std_values, color='skyblue')
-plt.title('Standard Deviation of Monthly Returns')
-plt.xlabel('Stocks')
-plt.ylabel("Standard Deviation (in%)")
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
-
-################################################
-
-# In this part we calculate the daily and monthly returns of the stocks 
-multpl_stock_daily_returns = multpl_stocks['Adj Close'].pct_change()
-multpl_stock_monthly_returns = multpl_stocks['Adj Close'].resample('M').ffill().pct_change()
-
-###############################################
-
-# In this part we plot the above calculated returns 
-fig = plt.figure()
-(multpl_stock_monthly_returns + 1).cumprod().plot()
-plt.show()
-# Add labels
-plt.xlabel('Date')
-plt.ylabel("Cumulative Returns (in%)")
-
-# Add a legend
-plt.legend(loc='upper left')
-
-# Show the plot
-plt.show()
-
-#################################################
-
-# In this part we calculate the 50 and 200 days moving averages of our stocks 
-
-# we use this function to download the info over a 300 days interval 
-multpl_stocks = {ticker: yf.download(ticker, period='300d') for ticker in tickers} 
-
-# We plot the subplots with the a sharing x-axes based on our tickers
-fig, axes = plt.subplots(nrows=len(tickers), ncols=1, figsize=(10, 15))
-
-# Here we plot the closing prices in black, 50 days MA in blue and 200 days MA in red
-# We also label x and y axes and legend our graph   
-for ax, (ticker, df) in zip(axes, multpl_stocks.items()):
-    df['Close'].plot(ax=ax, label='Closing Price', color='black')
-    df['50_MA'] = df['Close'].rolling(window=50).mean()
-    df['50_MA'].plot(ax=ax, label='50-Day MA', color='blue')
-    df['200_MA'] = df['Close'].rolling(window=200).mean()
-    df['200_MA'].plot(ax=ax, label='200-Day MA', color='red')
-    
-    ax.set_title(ticker)
-    ax.legend()
-# Here we do some layout to make it more clear
-plt.tight_layout()
-plt.savefig("simplefinance.png", dpi=200)
-plt.show()
-
-
-
-###################################
-# PORTFOLIO OPTIMALIZATION MODULE #
-###################################
-
-
-
-# Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
-# Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
-
-# Initial information print for the user
-print("\n\nIn the following, the risk and return of the risky asset will be optimized using the Sharpe Ratio.")
-print("The tickers entered above are used to compose the risky asset. Each ticker will be assigned the optimal weight.")
-print("In a second step, the investors degree of risk aversion from the first module is incorporated.")
-print("This is done to determine the amount of wealth (%) that should be invested in the risk-free asset given the risk preferences.\n\n")
-
-# Define the stocks that are of interest
+# Store stocks in new variable
 stocks = tickers
 end_date = datetime.today()  # Set the end date for the data to today
 start_date = end_date - relativedelta(years=10)  # Set the start date for the data to 10 years ago from today
@@ -580,7 +525,7 @@ for stock in stocks:
 while True:
     try:
         # Request input from the user for the risk-free rate in decimal form
-        risk_free_rate = float(input("\n\nPlease insert the return (risk-free rate) of Risk-free Asset you would like to invest in to adjust the risk given your degree of risk aversion (e.g., 0.04 for 4%): "))
+        risk_free_rate = float(input("\n\nPlease insert the return (risk-free rate) of the Risk-free Asset you would like to invest in to adjust the risk given your degree of risk aversion (e.g., 0.04 for 4%): "))
         # Validate if the input rate is within the logical range (-1, 1) -> risk-free rate might be negative
         if not -1 < risk_free_rate < 1:
             print("Please enter a rate between -1 and 1.")
