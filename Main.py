@@ -29,13 +29,14 @@ import seaborn as sns  # For enhanced visualization style
 
 
 
-# Source: Bodie et al., 2024, pp. 174-175; Schmeiser, 2024, p.23
-# You start with 0 points which must be defined, so the points of the answers can be added
+# Source: Bodie et al., 2014, pp. 174-175; Schmeiser, 2024, p.23
 
+# You start with 0 points which must be defined, so the points of the answers can be added
 points = 0
 
 # Introduction
 print("Hey there, ")
+print("This program will guide you through identifying your investor profile, selecting stocks, analyzing their financial metrics, and allocating your investment across a portfolio of stocks (risky asset) and a risk-free asset to mitigate risk according to your risk preference.")
 print("Answer the following questions to see what type of investor you are. Do so by choosing between A, B or C. ")
 print("Let's begin!")
 
@@ -248,8 +249,8 @@ while True:
         
 # Question 8 
 print("\n8. Make a choice: ")
-print("\nA: a probability of 25% for a profit of CHF 30'000 ")
-print("\nB: a probability of 20% for a profit of CHF 45'000")
+print("\nA: Profit of CHF 30'000 with a probability of 25%")
+print("\nB: Profit of CHF 45'000 with a probability of 20%")
 while True:
     choice = input("\nenter your choice (A/B): ")
     if choice.upper () == "A":
@@ -496,6 +497,11 @@ while True:
         # Display financial ratios in a tabular format
         print(f"\nFINANCIAL RATIOS:\n{pd.DataFrame.from_dict(ratios, orient='index')}")
 
+        # Plotting
+        plot_price_and_moving_averages(ticker)
+        plot_financial_ratios(ratios)
+        plot_stock_data(ticker)
+
     except Exception as e:
         # Handle any exceptions that occur during fetching and display an error message
         print(f"\nFailed to retrieve data for {ticker}. Error: {e}")
@@ -508,13 +514,13 @@ while True:
         
         
 ###################################
-# PORTFOLIO OPTIMALIZATION MODULE #
+# PORTFOLIO OPTIMIZATION MODULE #
 ###################################
 
 
 
 # Step 1: Risk/Return optimization of the Risky Asset (portfolio of stocks)
-# Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. Youtube
+# Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. YouTube
 
 # Initial information print for the user
 print("\n\nIn this module, the risk and return of the risky asset will be optimized using the Sharpe Ratio.")
@@ -735,7 +741,6 @@ risky_asset_return = optimal_portfolio_return
 risky_asset_sd = optimal_portfolio_volatility
 
 # Here we use the coefficient 'A' of risk aversion from the first module
-
 # Calculate the optimal weight for investment in the risky asset based on utility maximization
 # where utility U = risk_free_rate + weight_risky_asset * (E(r) - rf) - 0.5 * A * sd_risky_asset**2 * weight_risky_asset**2
 # Derive utility function, set to zero and solve for weight_risky_asset
