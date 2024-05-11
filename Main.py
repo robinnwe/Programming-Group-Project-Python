@@ -762,7 +762,7 @@ print(f"\n\nGiven your degree of risk aversion, the optimal percentage of your w
 print(f"Consequently, the optimal percentage of your wealth allocated in the Risk-Free Asset is: {weight_risk_free_asset:.2f} %.")
 
 # Print portfolio return and standard deviation
-print(f"\n\nYour final portfolio will yield {portfolio_return:.2f} % in return and has a volatility of {portfolio_sd:.2f} %.")
+print(f"\n\nYour final portfolio will yield {portfolio_return:.2f} % in return annually and has a volatility of {portfolio_sd:.2f} %.")
 
 # Print Farewell message
 print("\n\nThank you very much for using our program. Goodbye.")
