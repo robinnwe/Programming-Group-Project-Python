@@ -86,7 +86,6 @@ while True:
     else:
         print("Invalid choice. Please choose either A, B or C.")
 
-
 # Question 2b
 print("\n2b. What would you do if the goal were 15 years away? ")
 print("\nA: Sell ")
@@ -108,7 +107,6 @@ while True:
         break # This will break the loop
     else:
         print("Invalid choice. Please choose either A, B or C.")
-
 
 # Question 2c
 print("\n2c. What would you do if the goal were 30 years away? ")
@@ -132,7 +130,6 @@ while True:
     else:
         print("Invalid choice. Please choose either A, B or C.")
           
-
 # Question 3
 print("\n3. The price of your retirement investment jumps 25% a month after you buy it. Again, the fundamentals haven't changed. After you finish gloating, what do you do? ")
 print("\nA: Sell it and lock in your gains ")
@@ -176,8 +173,7 @@ while True:
         break # This will break the loop
     else:
         print("Invalid choice. Please choose either A, B or C.")
-      
-    
+       
 # Question 5
 print("\n5. You just won a big prize! But which one? It's up to you. ")
 print("\nA: $2,000 in cash ")
@@ -200,7 +196,6 @@ while True:
     else:
         print("Invalid choice. Please choose either A, B or C.")
           
-
 # Question 6
 print("\n6. A good investment opportunity just came along. But you have to borrow money to get in. Would you take out a loan? ")
 print("\nA: Definitely not ")
@@ -222,8 +217,7 @@ while True:
         break #This will break the loop
     else:
         print("Invalid choice. Please choose either A, B or C.")
-         
-        
+    
 # Question 7
 print("\n7. Your company is selling stock to its employees. In three years, management plans to take the company public. Until then, you won't be able to sell your shares and you will get no dividends. But your investment could multiply as much as 10 times when the company goes public. How much money would you invest? ")
 print("\nA: None ") 
@@ -245,8 +239,7 @@ while True:
         break # This will break the loop
     else:
         print("Invalid choice. Please choose either A, B or C.")
-        
-        
+            
 # Question 8 
 print("\n8. Make a choice: ")
 print("\nA: Profit of CHF 30'000 with a probability of 25%")
@@ -264,7 +257,6 @@ while True:
     else:
         print("Invalid choice. Please choose either A or B.")
           
-
 # Question 9 
 print("\n9. Make a choice: ")
 print("\nA: Profit of CHF 30'000 with a probability of 100%")
@@ -344,7 +336,6 @@ def fetch_general_info(ticker):
         'Full Time Employees': info.get('fullTimeEmployees', 'N/A')  # Number of employees
     }
     return general_info
-
 
 # Function to fetch financial ratios
 def fetch_financial_ratios(ticker):
@@ -523,9 +514,9 @@ while True:
 # Source: O’Connell, R. (2023). Portfolio Optimization in Python: Boost Your Financial Performance. YouTube
 
 # Initial information print for the user
-print("\n\nIn this module, the risk and return of the risky asset will be optimized using the Sharpe Ratio.")
+print("\n\nIn this module, the risk and return of the Risky Asset will be optimized using the Sharpe Ratio.")
 print("You will have to enter the tickers of the stocks that will constitute your Risky Asset first. Each ticker will be assigned the optimal weight.")
-print("In a second step, your degree of risk aversion from the first module is incorporated by allocating a percentage of your wealth to a risk-free asset.")
+print("In a second step, your degree of risk aversion from the first module is incorporated by allocating a percentage of your wealth to a Risk-Free Asset.")
 
 def is_valid_ticker(ticker):
     """
@@ -606,7 +597,7 @@ for stock in stocks:
 while True:
     try:
         # Request input from the user for the risk-free rate in decimal form
-        risk_free_rate = float(input("\n\nPlease insert the return (risk-free rate) of the Risk-free Asset you would like to invest in to adjust the risk given your degree of risk aversion (e.g., 0.04 for 4%): "))
+        risk_free_rate = float(input("\n\nPlease insert the return (risk-free rate) of the Risk-Free Asset you would like to invest in to adjust the risk given your degree of risk aversion (e.g., 0.04 for 4%): "))
         # Validate if the input rate is within the logical range (-1, 1) -> risk-free rate might be negative
         if not -1 < risk_free_rate < 1:
             print("Please enter a rate between -1 and 1.")
@@ -725,12 +716,13 @@ if optimized_results.success:
     plt.title("Optimal Portfolio Weights")  # Title of the chart
     plt.show()  # Display the chart 
 
+    # Display key performance metrics of the Risky Asset
     print("\n\nRisky Asset:")     
     print(f"The Expected Annual Return of the Risky Asset is: {optimal_portfolio_return:.4f}")
     print(f"The Expected Volatility of the Risky Asset is: {optimal_portfolio_volatility:.4f}")
     print(f"The Optimal Sharpe Ratio of the Risky Asset is: {optimal_sharpe_ratio:.4f}")
 else:
-    print("\n\nOptimization did not converge.")
+    print("\n\nOptimization did not converge.")  # Error message
 
 
 # Step 2: Implement the coefficient or risk aversion to determine the optimal allocation in the risky and risk-free asset
@@ -758,11 +750,11 @@ portfolio_return = weight_risky_asset * risky_asset_return + weight_risk_free_as
 portfolio_sd = weight_risky_asset * risky_asset_sd
 
 # Print the optimal allocations for both the risky and risk-free assets
-print(f"\n\nGiven your degree of risk aversion, the optimal percentage of your wealth allocated in the Risky Asset is: {weight_risky_asset:.2f} %.")
-print(f"Consequently, the optimal percentage of your wealth allocated in the Risk-Free Asset is: {weight_risk_free_asset:.2f} %.")
+print(f"\n\nGiven your degree of risk aversion, the optimal percentage of your wealth that should be allocated to the Risky Asset is: {weight_risky_asset:.2f} %.")
+print(f"Consequently, the optimal percentage of your wealth that should be allocated to the Risk-Free Asset is: {weight_risk_free_asset:.2f} %.")
 
 # Print portfolio return and standard deviation
-print(f"\n\nYour final portfolio will yield {portfolio_return:.2f} % in return annually and has a volatility of {portfolio_sd:.2f} %.")
+print(f"\n\nYour final portfolio consisting of a Risky Asset (portfolio of stocks) and a Risk-Free Asset will yield {portfolio_return:.2f} % in return annually and has a volatility of {portfolio_sd:.2f} %.")
 
 # Print Farewell message
 print("\n\nThank you very much for using our program. Goodbye.")
